@@ -1,6 +1,9 @@
+import logging
+import re
+import secrets
 import sqlite3
 
-import logging
+from passlib.hash import pbkdf2_sha256 as sha256
 
 
 def create_database() -> None:
@@ -10,7 +13,7 @@ def create_database() -> None:
     """
     # Создание подключения к базе данных
     logging.debug("Создание базы данных.")
-    conn = sqlite3.connect(r'database/database.db')
+    conn = sqlite3.connect(r'../database/database.db')
     try:
         cursor = conn.cursor()
         # Создание таблицы "user"
@@ -41,3 +44,40 @@ def create_database() -> None:
         logging.debug(f"Создание базы данных произошло с ошибкой: {error}.")
     finally:
         conn.close()
+
+
+def generate_session_token() -> str:
+    """
+    Функция, которая генерирует токен сессии.
+    :return: Токен сессии.
+    """
+    token = secrets.token_hex(16)
+    return token
+
+
+def generate_password_hash(password: str) -> str:
+    """
+    Функция, которая генерирует хэш для пароля.
+    :return: Хэш пароля.
+    """
+    return sha256.hash(password)
+
+
+def check_password_hash(password: str, password_hash: str) -> bool:
+    """
+    Функция, которая проверяет соответствие пароля и хэша.
+    :return: Хэш пароля.
+    """
+    return sha256.verify(password, password_hash)
+
+
+def is_valid_email(email: str):
+    """
+    Функция, которая проверяет правильность адреса электронной почты.
+    :return: Действительно ли адрес электронной почты правильный.
+    """
+    pattern = r"^[-\w\.]+@([-\w]+\.)+[-\w]{2,4}$"
+    if re.match(pattern, email) is not None:
+        return True
+    else:
+        return False
