@@ -13,7 +13,7 @@ conn = sqlite3.connect('../database/database.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def hello():
     """
     Скажи привет!
