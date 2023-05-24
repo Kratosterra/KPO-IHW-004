@@ -56,7 +56,7 @@ def manage_dishes():
     # Проверка роли пользователя (только менеджеры имеют доступ)
 
     if request.method == 'GET':
-        # Получение информации о блюдах
+        # Получение информации о блюде
 
         # Возвращаем информацию о блюдах
         return jsonify({'message': 'Dishes retrieved successfully'}), 200
@@ -78,6 +78,41 @@ def manage_dishes():
 
         # Возвращаем успешный результат
         return jsonify({'message': 'Dish deleted successfully'}), 200
+
+@app.route('/dishes', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def manage_dishes():
+    # Проверка роли пользователя (только менеджеры имеют доступ)
+
+    if request.method == 'GET':
+        # Получение информации о блюде
+
+        # Возвращаем информацию о блюдах
+        return jsonify({'message': 'Dishes retrieved successfully'}), 200
+
+    elif request.method == 'POST':
+        # Создание нового блюда
+
+        # Возвращаем успешный результат
+        return jsonify({'message': 'Dish created successfully'}), 201
+
+    elif request.method == 'PUT':
+        # Обновление информации о блюде
+
+        # Возвращаем успешный результат
+        return jsonify({'message': 'Dish updated successfully'}), 200
+
+    elif request.method == 'DELETE':
+        # Удаление блюда
+
+        # Возвращаем успешный результат
+        return jsonify({'message': 'Dish deleted successfully'}), 200
+
+
+@app.route('/menu', methods=['GET'])
+def get_menu():
+    # Меню
+
+    return jsonify({'message': 'Menu'}), 200
 
 
 if __name__ == '__main__':
