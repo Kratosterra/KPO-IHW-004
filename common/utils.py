@@ -46,6 +46,53 @@ def create_database() -> None:
         conn.close()
 
 
+def create_database_processing():
+    conn = sqlite3.connect("../database/orders.db")
+    cursor = conn.cursor()
+    # Таблица "dish"
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS dish (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name VARCHAR(100) NOT NULL,
+            description TEXT,
+            price DECIMAL(10, 2) NOT NULL,
+            quantity INT NOT NULL,
+            is_available BOOLEAN NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+
+    # Таблица "order"
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS order_table (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INT NOT NULL,
+            status VARCHAR(50) NOT NULL,
+            special_requests TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES user(id)
+        )
+    ''')
+
+    # Таблица "order_dish"
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS order_dish (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            order_id INT NOT NULL,
+            dish_id INT NOT NULL,
+            quantity INT NOT NULL,
+            price DECIMAL(10, 2) NOT NULL,
+            FOREIGN KEY (order_id) REFERENCES order_table(id),
+            FOREIGN KEY (dish_id) REFERENCES dish(id)
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
 def generate_session_token() -> str:
     """
     Функция, которая генерирует токен сессии.
