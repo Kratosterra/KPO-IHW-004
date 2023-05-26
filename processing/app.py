@@ -15,6 +15,10 @@ utils.create_database_processing()
 
 @app.route('/orders', methods=['POST'])
 def create_order():
+    """
+    Создание заказа пользователем.
+    :return: Состояние или информацию о создании заказов.
+    """
     data = request.get_json()
     logging.debug(f"{create_order.__name__}: Получена информация: {data}")
     if 'user_id' not in data or 'dishes' not in data or 'special_requests' not in data:
@@ -63,6 +67,10 @@ def create_order():
 
 @app.route('/orders/process', methods=['POST'])
 def process_orders():
+    """
+    Выполнение заказов с некторой задержкой.
+    :return: Состояние или информацию о выполнении заказов.
+    """
     cursor.execute("SELECT * FROM order_table WHERE status = ?", ('pending',))
     orders = cursor.fetchall()
     logging.debug(f"{process_orders.__name__}: Начинаю обработку заказов!")
@@ -78,6 +86,11 @@ def process_orders():
 
 @app.route('/orders/<int:order_id>', methods=['GET'])
 def get_order(order_id):
+    """
+    Возвращает информацию о заказе по его идентификационному номеру.
+    :param order_id: Идентификационный номер.
+    :return: Информацию о заказе.
+    """
     cursor.execute("SELECT * FROM order_table WHERE id = ?", (order_id,))
     order = cursor.fetchone()
     if not order:
@@ -91,6 +104,10 @@ def get_order(order_id):
 
 @app.route('/dishes', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def manage_dishes():
+    """
+    Управление блюдами. Получать информацию о блюде могут все, но остальные действия выполняются только менеджером.
+    :return: Информацию о блюде или статус выполнения запроса.
+    """
     data = request.get_json()
     logging.debug(f"{manage_dishes.__name__}: Получена информация: {data}")
     if 'user_id' not in data:
@@ -157,6 +174,11 @@ def manage_dishes():
 
 @app.route('/menu', methods=['GET'])
 def get_menu():
+    """
+    Возвращает информацию о всех доступных блюдах.
+    :return:
+    """
+    logging.debug(f"{get_menu.__name__}: Получаем информацию о меню!")
     query = "SELECT * FROM dish WHERE is_available = 'True'"
     cursor.execute(query)
     dishes = cursor.fetchall()

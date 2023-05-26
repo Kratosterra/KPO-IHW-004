@@ -84,7 +84,7 @@ def login():
 def get_user_info():
     """
     Получает инормации о сессии на основе заголовка, содержащего токен сессии.
-    :return Состояние или информацию о пользователе:
+    :return Состояние или информацию о пользователе.
     """
     logging.debug(f"{get_user_info.__name__}: Получение информации о пользователе!")
     token = request.headers.get('Authorization')
