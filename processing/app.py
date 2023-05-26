@@ -176,7 +176,7 @@ def manage_dishes():
 def get_menu():
     """
     Возвращает информацию о всех доступных блюдах.
-    :return:
+    :return: Информация о доступных блюдах.
     """
     logging.debug(f"{get_menu.__name__}: Получаем информацию о меню!")
     query = "SELECT * FROM dish WHERE is_available = 'True'"
