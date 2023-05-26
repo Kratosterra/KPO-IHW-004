@@ -46,7 +46,7 @@ def create_database() -> None:
         conn.close()
 
 
-def create_database_processing():
+def create_database_processing() -> None:
     conn = sqlite3.connect("database/orders.db")
     cursor = conn.cursor()
     # Таблица "dish"
@@ -63,7 +63,7 @@ def create_database_processing():
         )
     ''')
 
-    # Таблица "order"
+    # Таблица "order_table"
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS order_table (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -118,7 +118,7 @@ def check_password_hash(password: str, password_hash: str) -> bool:
     return sha256.verify(password, password_hash)
 
 
-def is_valid_email(email: str):
+def is_valid_email(email: str) -> bool:
     """
     Функция, которая проверяет правильность адреса электронной почты.
     :return: Действительно ли адрес электронной почты правильный.

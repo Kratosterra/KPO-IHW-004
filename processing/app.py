@@ -68,7 +68,7 @@ def create_order():
 @app.route('/orders/process', methods=['POST'])
 def process_orders():
     """
-    Выполнение заказов с некторой задержкой.
+    Выполнение заказов с некоторой задержкой.
     :return: Состояние или информацию о выполнении заказов.
     """
     cursor.execute("SELECT * FROM order_table WHERE status = ?", ('pending',))

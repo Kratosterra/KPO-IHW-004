@@ -83,7 +83,7 @@ def login():
 @app_auth.route('/user', methods=['GET'])
 def get_user_info():
     """
-    Получает инормации о сессии на основе заголовка, содержащего токен сессии.
+    Получает информации о сессии на основе заголовка, содержащего токен сессии.
     :return Состояние или информацию о пользователе.
     """
     logging.debug(f"{get_user_info.__name__}: Получение информации о пользователе!")
@@ -127,6 +127,3 @@ def extend_session(session_token) -> None:
     expires_at = datetime.now() + timedelta(days=7)  # Продление сессии на 7 дней
     cursor.execute('UPDATE session SET expires_at = ? WHERE session_token = ?', (expires_at, session_token))
     conn.commit()
-
-
-
