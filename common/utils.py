@@ -13,7 +13,7 @@ def create_database() -> None:
     """
     # Создание подключения к базе данных
     logging.debug("Создание базы данных.")
-    conn = sqlite3.connect(r'../database/database.db')
+    conn = sqlite3.connect(r'database/database.db')
     try:
         cursor = conn.cursor()
         # Создание таблицы "user"
@@ -47,7 +47,7 @@ def create_database() -> None:
 
 
 def create_database_processing():
-    conn = sqlite3.connect("../database/orders.db")
+    conn = sqlite3.connect("database/orders.db")
     cursor = conn.cursor()
     # Таблица "dish"
     cursor.execute('''

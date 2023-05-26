@@ -8,12 +8,12 @@ from flask import jsonify, request
 from common import utils
 
 # Создаём экземпляр приложения.
-app = Flask(__name__)
-conn = sqlite3.connect('../database/database.db', check_same_thread=False)
+app_auth = Flask(__name__)
+conn = sqlite3.connect('database/database.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
-@app.route('/', methods=['GET'])
+@app_auth.route('/', methods=['GET'])
 def hello():
     """
     Скажи привет!
@@ -22,7 +22,7 @@ def hello():
     return jsonify({'message': 'Hello!'}), 200
 
 
-@app.route('/register', methods=['POST'])
+@app_auth.route('/register', methods=['POST'])
 def register():
     """
     Регистрация нового пользователя
@@ -51,7 +51,7 @@ def register():
         return jsonify(message='Name or email already exists!'), 400
 
 
-@app.route('/login', methods=['POST'])
+@app_auth.route('/login', methods=['POST'])
 def login():
     """
     Авторизация пользователя.
@@ -80,7 +80,7 @@ def login():
         return jsonify(message='Invalid email or password'), 401
 
 
-@app.route('/user', methods=['GET'])
+@app_auth.route('/user', methods=['GET'])
 def get_user_info():
     """
     Получает инормации о сессии на основе заголовка, содержащего токен сессии.
@@ -129,5 +129,4 @@ def extend_session(session_token) -> None:
     conn.commit()
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host="127.0.0.1", port=5000)
+
