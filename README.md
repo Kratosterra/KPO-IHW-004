@@ -5,6 +5,7 @@
 
 ### Дополнительная информация
 #### [Коллекция на Postman](https://app.getpostman.com/join-team?invite_code=f56b5bb66da7e4e411c3e3a66439e1f7)
+#### [Документация моей коллекции](https://documenter.getpostman.com/view/10879421/2s93m7VgEA)
 
 ### Использованные технологии
 - [**Flask**](https://flask.palletsprojects.com/en/2.3.x/)

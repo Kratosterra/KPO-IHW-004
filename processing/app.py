@@ -20,6 +20,8 @@ def create_order():
     :return: Состояние или информацию о создании заказов.
     """
     data = request.get_json()
+    if data is None:
+        return jsonify({'error': 'No data from user!'}), 400
     logging.debug(f"{create_order.__name__}: Получена информация: {data}")
     if 'user_id' not in data or 'dishes' not in data or 'special_requests' not in data:
         logging.debug(f"{create_order.__name__}: Недостаточно информации!")
@@ -109,6 +111,8 @@ def manage_dishes():
     :return: Информацию о блюде или статус выполнения запроса.
     """
     data = request.get_json()
+    if data is None:
+        return jsonify({'error': 'No data from user!'}), 400
     logging.debug(f"{manage_dishes.__name__}: Получена информация: {data}")
     if 'user_id' not in data:
         logging.debug(f"{manage_dishes.__name__}: Нет информации о пользователе!")
